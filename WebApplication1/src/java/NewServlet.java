@@ -5,17 +5,16 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
 
 /**
  *
  * @author DPV
  */
-@WebServlet(urlPatterns = {"/NewServlet"})
 public class NewServlet extends HttpServlet {
 
     /**
@@ -32,15 +31,14 @@ public class NewServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            Enumeration headerNames = request.getHeaderNames();
+            out.println("<TABLE>");
+            while (headerNames.hasMoreElements()) {
+                String headerName = (String) headerNames.nextElement();
+                out.println("<TR><TD>" + headerName + "</TD>");
+                out.println("<TD>" + request.getHeader(headerName) + "</TD></TR>");
+            }
+            out.println("</TABLE>");
         }
     }
 
