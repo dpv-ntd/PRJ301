@@ -59,7 +59,14 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("Login.jsp").forward(request, response);
+        Account account = (Account) request.getSession().getAttribute("account");
+        if (account != null) {
+            request.getSession().setAttribute("account", account);
+            request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        }
+
     }
 
     /**
