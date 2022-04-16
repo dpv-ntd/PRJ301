@@ -8,7 +8,7 @@
                     <i class="fa-solid fa-house me-3"></i>Dashboard
                 </a>
                 <c:if test="${account.getRole() == 1}">
-                    <a class="nav-link ${account}" href="account">
+                    <a class="nav-link" href="account">
                         <div class="sb-nav-link-icon"></div>
                         <i class="fa-solid fa-user me-3"></i>Account
                     </a>
