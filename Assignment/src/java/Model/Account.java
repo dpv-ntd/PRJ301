@@ -5,112 +5,114 @@
  */
 package Model;
 
+import java.sql.Date;
+
 /**
  *
  * @author DPV
  */
 public class Account {
 
-    private int id;
-    private String username;
-    private String password;
-    private String name;
-    private String address;
-    private String email;
-    private String phone;
-    private String role;
-    private String block;
+    private int AccountID;
+    private String Name;
+    private Date DOB;
+    private String PhoneNumber;
+    private String Address;
+    private String Email;
+    private String Username;
+    private String Password;
+    private int Role;
 
     public Account() {
     }
 
-    public Account(int id, String username, String password, String name, String address, String email, String phone, String role, String block) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.phone = phone;
-        this.role = role;
-        this.block = block;
+    public Account(int AccountID, String Name, Date DOB, String PhoneNumber, String Address, String Email, String Username, String Password, int Role) {
+        this.AccountID = AccountID;
+        this.Name = Name;
+        this.DOB = DOB;
+        this.PhoneNumber = PhoneNumber;
+        this.Address = Address;
+        this.Email = Email;
+        this.Username = Username;
+        this.Password = Password;
+        this.Role = Role;
     }
 
-    public int getId() {
-        return id;
+    public int getAccountID() {
+        return AccountID;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAccountID(int AccountID) {
+        this.AccountID = AccountID;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String Name) {
+        this.Name = Name;
+    }
+
+    public Date getDOB() {
+        return DOB;
+    }
+
+    public void setDOB(Date DOB) {
+        this.DOB = DOB;
+    }
+
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(String PhoneNumber) {
+        this.PhoneNumber = PhoneNumber;
     }
 
     public String getAddress() {
-        return address;
+        return Address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddress(String Address) {
+        this.Address = Address;
     }
 
     public String getEmail() {
-        return email;
+        return Email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getUsername() {
+        return Username;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setUsername(String Username) {
+        this.Username = Username;
     }
 
-    public String getRole() {
-        return role;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPassword(String Password) {
+        this.Password = Password;
     }
 
-    public String getBlock() {
-        return block;
+    public int getRole() {
+        return Role;
     }
 
-    public void setBlock(String block) {
-        this.block = block;
+    public void setRole(int Role) {
+        this.Role = Role;
     }
 
     @Override
     public String toString() {
-        return "Account{" + "id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", address=" + address + ", email=" + email + ", phone=" + phone + ", role=" + role + ", block=" + block + '}';
+        return "Account{" + "AccountID=" + AccountID + ", Name=" + Name + ", DOB=" + DOB + ", PhoneNumber=" + PhoneNumber + ", Address=" + Address + ", Email=" + Email + ", Username=" + Username + ", Password=" + Password + ", Role=" + Role + '}';
     }
 
 }

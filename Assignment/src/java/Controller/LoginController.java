@@ -4,6 +4,8 @@
  */
 package Controller;
 
+import DAL.AccountDAO;
+import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -74,7 +76,16 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        response.getWriter().print(username +", " + password);
+        AccountDAO dao = new AccountDAO();
+        Account account = dao.getAccount(username, password);
+
+        if (account != null) {
+            request.getSession().setAttribute("account", account);
+            request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
+        } else {
+            request.setAttribute("notify", "Login information is incorrect");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        }
     }
 
     /**

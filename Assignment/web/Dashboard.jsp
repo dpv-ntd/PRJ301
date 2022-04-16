@@ -18,6 +18,6 @@
             <input type="text" name="text">
             <input type="submit" value="Input" />
         </form>
-        <input type="text" value="${text}">
+        <input type="text" value="${account.getName()}">
     </body>
 </html>
