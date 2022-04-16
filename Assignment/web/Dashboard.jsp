@@ -11,6 +11,37 @@
         <title>Dashboard</title>
         <%@include file="Header.jsp" %>
     </head>
+    <style>
+        .feature-box {
+            padding: 38px 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 29px 0 rgb(18 66 101 / 8%);
+            transition: all 0.3s ease-in-out;
+            border-radius: 8px;
+            z-index: 1;
+            width: 100%;
+        }
+        .feature-icon {
+            font-size: 1.8em;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.5em;
+            font-weight: 500;
+            padding-bottom: 0.25rem;
+            text-decoration: none;
+            color: white;
+        }
+        .feature-content{
+            font-size: 1em;
+            font-weight: 500;
+            padding-bottom: 0.25rem;
+            text-decoration: none;
+            color: white;
+        }
+    </style>
     <body class="sb-nav-fixed">
         <%@include file="Navbar.jsp" %>
         <div id="layoutSidenav">
@@ -20,43 +51,20 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Dashboard</h1><hr>
                         <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Warning Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Success Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="feature-box" style="background-color: #2EE27E">
+                                    <div class="text-white">
+                                        <i class="fa-solid fa-car feature-icon"></i>
+                                        <div>
+                                            <div class="feature-title">${Available}</div>
+                                            <div class="feature-title">CHỖ ĐỖ XE</div>
+                                            <div class="feature-content">CÒN TRỐNG</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                                            
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">

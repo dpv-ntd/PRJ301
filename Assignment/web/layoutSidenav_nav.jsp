@@ -13,21 +13,30 @@
                         <i class="fa-solid fa-user me-3"></i>Account
                     </a>
                 </c:if>
-                <a class="nav-link" href="book">
-                    <div class="sb-nav-link-icon"></div>
-                    <i class="fa-solid fa-book me-3"></i>Book
-                </a>
+
                 <a class="nav-link" href="reader">
                     <div class="sb-nav-link-icon"></div>
                     <i class="fa-solid fa-book-open-reader me-3"></i>Reader
                 </a>
-                <a class="nav-link" href="library-card">
+                <a class="nav-link" href="invoice">
                     <div class="sb-nav-link-icon"></div>
-                    <i class="fa-solid fa-file-lines me-3"></i>Library Card
+                    <i class="fa-solid fa-file-lines me-3"></i>Invoice
+                </a>
+                <a class="nav-link" href="book">
+                    <div class="sb-nav-link-icon"></div>
+                    <i class="fa-solid fa-book me-3"></i>Book
                 </a>
                 <a class="nav-link" href="category">
                     <div class="sb-nav-link-icon"></div>
                     <i class="fa-solid fa-filter me-3"></i>Category
+                </a>
+                <a class="nav-link" href="author">
+                    <div class="sb-nav-link-icon"></div>
+                    <i class="fa-solid fa-user-pen me-3"></i>Author
+                </a>
+                <a class="nav-link" href="publisher">
+                    <div class="sb-nav-link-icon"></div>
+                    <i class="fas fa-file-powerpoint me-3"></i>Publisher
                 </a>
             </div>
         </div>
