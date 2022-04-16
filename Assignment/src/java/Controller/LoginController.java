@@ -36,7 +36,7 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");            
+            out.println("<title>Servlet LoginController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
@@ -73,15 +73,8 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
-        if(username.equals("admin") || password.equals("123")){
-            response.getWriter().print("<!DOCTYPE html>");
-            response.getWriter().print("oke");
-            request.getRequestDispatcher("Login.jsp").include(request, response);
-        }
-        else{
-        response.getWriter().print("wrong");
-        }
+
+        response.getWriter().print(username +", " + password);
     }
 
     /**
