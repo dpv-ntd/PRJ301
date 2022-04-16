@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DPV
  */
-@WebServlet(name = "DashboardController", urlPatterns = {"/dashboard"})
-public class DashboardController extends HttpServlet {
+@WebServlet(name = "AccountController", urlPatterns = {"/account"})
+public class AccountController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +36,10 @@ public class DashboardController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DashboardController</title>");            
+            out.println("<title>Servlet AccountController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DashboardController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AccountController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,8 +57,8 @@ public class DashboardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("dashboard", "active");
-        request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
+        request.setAttribute("account", "active");
+        request.getRequestDispatcher("Account.jsp").forward(request, response);
     }
 
     /**
