@@ -18,54 +18,50 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Account</h1>               
-                        <hr>
-
-                        <div class="card mb-4">
-                            <div class="card-header mb-4">
-                                <a href="create-account" type="button" class="btn btn-outline-success">
-                                    <i class="fa-solid fa-plus me-2"></i>Add Membership
-                                </a>
+                        <h1 class="mt-4">Account</h1><hr>
+                        <form class="row g-3 needs-validation" novalidate>
+                            <div class="col-md-6">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" value="" required name="username">
                             </div>
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr style="background-color: #FFCE73">
-                                            <th class="text-center">Username</th>
-                                            <th class="text-center">Password</th>
-                                            <th class="text-center">Name</th>
-                                            <th class="text-center">Date of birth</th>
-                                            <th class="text-center">Role</th>
-                                            <th class="text-center"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${listAccount}" var="ac">
-                                            <tr>
-                                                <td class="text-center">${ac.getUsername()}</td>
-                                                <td class="text-center">${ac.getPassword()}</td>
-                                                <td class="text-center">${ac.getName()}</td>
-                                                <td class="text-center">${ac.getDOB()}</td>
-                                                <td class="text-center">${ac.getRole()== 1 ? "Adminstrator":"User"}</td>
-                                                <c:choose>
-                                                    <c:when test="${ac.getRole() == 1}">
-                                                        <td class="text-center">
-                                                            <a><i class="fa-solid fa-square-xmark fa-lg"></i></a>
-                                                        </td>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <td class="text-center">
-                                                            <a href="#"><i class="fa-solid fa-pen-to-square text-primary fa-lg"></i></a>
-                                                            <a href="#" ><i class="fa-solid fa-trash text-danger fa-lg"></i></a>
-                                                        </td>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
+                            <div class="col-md-6">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" value="" required name="password">
                             </div>
-                        </div>
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" value="" required name="name">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="role" class="form-label">Role</label>
+                                <select class="form-select" id="role" required name="role">
+                                    <option selected disabled value="">Choose...</option>
+                                    <option>...</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a valid state.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="dob" class="form-label">Date of birth</label>
+                                <input type="date" class="form-control" id="dob" value="" required name="dob">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" value="" required name="address">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phonenumber" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="phonenumber" value="" required name="phonenumber">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" value="" required name="email">
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary" type="submit">Create Account</button>
+                            </div>
+                        </form>
                     </div>
                 </main>
                 <%@include file="Footer.jsp" %>
