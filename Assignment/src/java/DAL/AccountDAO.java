@@ -46,4 +46,29 @@ public class AccountDAO extends BaseDAO<Account> {
         return null;
     }
 
+    public ArrayList<Account> getListAccount() {
+        ArrayList<Account> listAccount = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Account ORDER BY AccountID";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Account s = new Account();
+                s.setAccountID(rs.getInt("AccountID"));
+                s.setUsername(rs.getString("Username"));
+                s.setPassword(rs.getString("Password"));
+                s.setName(rs.getString("Name"));
+                s.setEmail(rs.getString("Email"));
+                s.setAddress(rs.getString("Address"));
+                s.setDOB(rs.getDate("DOB"));
+                s.setPhoneNumber(rs.getString("PhoneNumber"));
+                s.setRole(rs.getInt("Role"));
+                listAccount.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listAccount;
+    }
+
 }

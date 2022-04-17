@@ -58,7 +58,7 @@ public class DashboardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("dashboard", "active");
+        request.setAttribute("dashboardMenu", "active");
         request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
     }
 

@@ -4,8 +4,11 @@
  */
 package Controller;
 
+import DAL.AccountDAO;
+import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -57,7 +60,11 @@ public class AccountController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("account", "active");
+
+        AccountDAO dao = new AccountDAO();
+        ArrayList<Account> listAccount = dao.getListAccount();
+        request.setAttribute("accountMenu", "active");
+        request.setAttribute("listAccount", listAccount);
         request.getRequestDispatcher("Account.jsp").forward(request, response);
     }
 

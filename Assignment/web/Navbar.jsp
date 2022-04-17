@@ -7,7 +7,7 @@
     <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></div>
     <!--     <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-            <a class="nav-link active me-5" style="font-size: 20px">Welcome, ${account.getUsername()}</a>
+            <a class="nav-link active me-5" style="font-size: 20px">Welcome,</a>
         </li>
     </ul> 
     -->
