@@ -23,7 +23,7 @@
 
                         <div class="card mb-4">
                             <div class="card-header mb-4">
-                                <a href="create-account" type="button" class="btn btn-outline-success">
+                                <a href="account?action=create" type="button" class="btn btn-outline-success">
                                     <i class="fa-solid fa-plus me-2"></i>Add Membership
                                 </a>
                             </div>
@@ -55,7 +55,7 @@
                                                     </c:when>
                                                     <c:otherwise>
                                                         <td class="text-center">
-                                                            <a href="#"><i class="fa-solid fa-pen-to-square text-primary fa-lg me-2 ms-2" title="Edit"></i></a>
+                                                            <a href="account?action=edit&&AccountID=${ac.getAccountID()}"><i class="fa-solid fa-pen-to-square text-primary fa-lg me-2 ms-2" title="Edit"></i></a>
                                                             <a href="#" onclick="deleteAccount('${ac.getAccountID()}')" ><i class="fa-solid fa-trash text-danger fa-lg me-2 ms-2" title="Delete"></i></a>
                                                         </td>
                                                     </c:otherwise>
@@ -80,7 +80,7 @@
                             confirmButtonText: 'Yes, delete it!'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = 'delete-account?AccountID=' + id;
+                                window.location.href = 'account?action=delete&&AccountID=' + id;
                             }
                         })
                     }

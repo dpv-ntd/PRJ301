@@ -61,7 +61,31 @@ public class AccountController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
         AccountDAO dao = new AccountDAO();
+        String action = request.getParameter("action");
+        if (action != null) {
+            if (action.equals("create")) {
+                request.getRequestDispatcher("CreateAccount.jsp").forward(request, response);
+                return;
+            }
+            if (action.equals("edit")) {
+                String AccountID = request.getParameter("AccountID");
+                Account accountEdit = dao.getAccountToEdit(AccountID);
+                request.setAttribute("accountEdit", accountEdit);
+                request.getRequestDispatcher("EditAccount.jsp").forward(request, response);
+                return;
+            }
+            if (action.equals("delete")) {
+                String AccountID = request.getParameter("AccountID");
+                dao.deleteAccount(AccountID);
+                response.sendRedirect("account");
+                return;
+            }
+        }
+
         ArrayList<Account> listAccount = dao.getListAccount();
         request.setAttribute("accountMenu", "active");
         request.setAttribute("listAccount", listAccount);
@@ -79,7 +103,51 @@ public class AccountController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        AccountDAO dao = new AccountDAO();
+        String action = request.getParameter("action");
+
+        if (action != null) {
+            if (action.equals("create")) {
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                String name = request.getParameter("name");
+                String role = request.getParameter("role");
+                String dob = request.getParameter("dob");
+                String address = request.getParameter("address");
+                String phonenumber = request.getParameter("phonenumber");
+                String email = request.getParameter("email");
+
+                Account checkUsername = dao.CheckUsername(username);
+                if (checkUsername != null) {
+                    request.setAttribute("usernameExists", "true");
+                    request.getRequestDispatcher("CreateAccount.jsp").forward(request, response);
+                    return;
+                }
+                dao.createAccount(username, password, name, role, dob, address, phonenumber, email);
+                response.sendRedirect("account");
+                return;
+            }
+            if (action.equals("edit")) {
+                String AccountID = request.getParameter("AccountID");
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                String name = request.getParameter("name");
+                String role = request.getParameter("role");
+                String dob = request.getParameter("dob");
+                String address = request.getParameter("address");
+                String phonenumber = request.getParameter("phonenumber");
+                String email = request.getParameter("email");
+
+                dao.editAccount(username, password, name, role, dob, address, phonenumber, email, AccountID);
+                response.sendRedirect("account");
+                return;
+            }
+
+        }
     }
 
     /**

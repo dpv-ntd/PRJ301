@@ -71,6 +71,31 @@ public class AccountDAO extends BaseDAO<Account> {
         return null;
     }
 
+    public Account getAccountToEdit(String AccountID) {
+        try {
+            String sql = "SELECT * FROM Account where AccountID = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, AccountID);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Account s = new Account();
+                s.setAccountID(rs.getInt("AccountID"));
+                s.setName(rs.getString("Name"));
+                s.setDOB(rs.getDate("DOB"));
+                s.setAddress(rs.getString("Address"));
+                s.setEmail(rs.getString("Email"));
+                s.setPhoneNumber(rs.getString("PhoneNumber"));
+                s.setUsername(rs.getString("Username"));
+                s.setPassword(rs.getString("Password"));
+                s.setRole(rs.getInt("Role"));
+                return s;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public ArrayList<Account> getListAccount() {
         ArrayList<Account> listAccount = new ArrayList<>();
         try {
@@ -119,6 +144,25 @@ public class AccountDAO extends BaseDAO<Account> {
             String sql = "DELETE Account WHERE AccountId= ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, AccountId);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void editAccount(String username, String password, String name, String role, String dob, String address, String phonenumber, String email, String AccountID) {
+        try {
+            String sql = "UPDATE Account SET Username = ?, Password = ?, Name = ?, Role = ?, DOB = ?, Address = ?, PhoneNumber = ?, Email = ? WHERE AccountID = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            statement.setString(3, name);
+            statement.setString(4, role);
+            statement.setString(5, dob);
+            statement.setString(6, address);
+            statement.setString(7, phonenumber);
+            statement.setString(8, email);
+            statement.setString(9, AccountID);
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
