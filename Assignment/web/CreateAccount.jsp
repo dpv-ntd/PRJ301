@@ -19,10 +19,11 @@
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Account</h1><hr>
-                        <form class="row g-3 needs-validation" novalidate>
+                        <form class="row g-3 needs-validation" action="create-account" method="post">
                             <div class="col-md-6">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" value="" required name="username">
+                                <input type="text" class="form-control " id="username" value="" name="username" required="">
+                                <div class="text-danger">${usernameExists == null ? "":"This account already exists!"}</div>
                             </div>
                             <div class="col-md-6">
                                 <label for="password" class="form-label">Password</label>
@@ -36,7 +37,8 @@
                                 <label for="role" class="form-label">Role</label>
                                 <select class="form-select" id="role" required name="role">
                                     <option selected disabled value="">Choose...</option>
-                                    <option>...</option>
+                                    <option value="0">User</option>
+                                    <option value="1">Administrators</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please select a valid state.

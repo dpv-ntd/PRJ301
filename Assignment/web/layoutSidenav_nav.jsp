@@ -42,7 +42,7 @@
         </div>
         <div class="sb-sidenav-footer">
             <div class="small">Login in as:</div>
-            ${account.getRole() == 0 ? "User" : "Adminstrator"}
+            ${account.getRole() == 0 ? "User" : "Administrators"}
         </div>
     </nav>
 </div>

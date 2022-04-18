@@ -5,7 +5,6 @@
 package Controller;
 
 import DAL.AccountDAO;
-import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DPV
  */
-@WebServlet(name = "CreateAccountController", urlPatterns = {"/create-account"})
-public class CreateAccountController extends HttpServlet {
+@WebServlet(name = "DeleteAccount", urlPatterns = {"/delete-account"})
+public class DeleteAccount extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +37,10 @@ public class CreateAccountController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateAccountController</title>");
+            out.println("<title>Servlet DeleteAccount</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateAccountController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteAccount at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +58,10 @@ public class CreateAccountController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("CreateAccount.jsp").forward(request, response);
+        String AccountID = request.getParameter("AccountID");
+        AccountDAO dao = new AccountDAO();
+        dao.deleteAccount(AccountID);
+        response.sendRedirect("account");
     }
 
     /**
@@ -73,25 +75,7 @@ public class CreateAccountController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String name = request.getParameter("name");
-        String role = request.getParameter("role");
-        String dob = request.getParameter("dob");
-        String address = request.getParameter("address");
-        String phonenumber = request.getParameter("phonenumber");
-        String email = request.getParameter("email");
-
-        AccountDAO dao = new AccountDAO();
-        Account checkUsername = dao.CheckUsername(username);
-        if (checkUsername != null) {
-            request.setAttribute("usernameExists", "true");
-            request.getRequestDispatcher("CreateAccount.jsp").forward(request, response);
-            return;
-        }
-        dao.createAccount(username, password, name, role, dob, address, phonenumber, email);
-        response.sendRedirect("account");
-
+        processRequest(request, response);
     }
 
     /**

@@ -44,6 +44,7 @@ public class LoginController extends HttpServlet {
             out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+
         }
     }
 

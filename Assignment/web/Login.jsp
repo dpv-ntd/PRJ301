@@ -17,6 +17,7 @@
         <title>Login</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body style="background-color: #556676">
         <div id="layoutAuthentication">
@@ -38,8 +39,9 @@
                                                 <label for="inputPassword">Password</label>
                                             </div>
                                             <c:if test="${notify != null}">
-                                                <div class="form-check mb-3">
-                                                    <label class="text-danger">${notify}</label>
+                                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                    <strong>Failed!</strong> ${notify}.
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div>
                                             </c:if>
 
@@ -66,5 +68,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
     </body>
+
 </html>
 
