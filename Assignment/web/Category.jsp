@@ -43,8 +43,8 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr style="background-color: #FFCE73">
-                                            <th class="text-center">CategoryID</th>
-                                            <th class="text-center">CategoryName</th>
+                                            <th class="text-center">Category ID</th>
+                                            <th class="text-center">Category Name</th>
                                             <th class="text-center"></th>
                                         </tr>
                                     </thead>
