@@ -26,7 +26,7 @@
                     <div class="sb-nav-link-icon"></div>
                     <i class="fa-solid fa-book me-3"></i>Book
                 </a>
-                <a class="nav-link" href="category">
+                <a class="nav-link ${categoryMenu}" href="category">
                     <div class="sb-nav-link-icon"></div>
                     <i class="fa-solid fa-filter me-3"></i>Category
                 </a>

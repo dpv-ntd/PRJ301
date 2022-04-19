@@ -63,6 +63,7 @@ public class AccountController extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        request.setAttribute("accountMenu", "active");
 
         AccountDAO dao = new AccountDAO();
         String action = request.getParameter("action");
@@ -87,7 +88,6 @@ public class AccountController extends HttpServlet {
         }
 
         ArrayList<Account> listAccount = dao.getListAccount();
-        request.setAttribute("accountMenu", "active");
         request.setAttribute("listAccount", listAccount);
         request.getRequestDispatcher("Account.jsp").forward(request, response);
     }

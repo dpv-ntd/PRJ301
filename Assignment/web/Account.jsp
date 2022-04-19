@@ -50,7 +50,8 @@
                                                 <c:choose>
                                                     <c:when test="${ac.getRole() == 1}">
                                                         <td class="text-center">
-                                                            <a><i class="fa-solid fa-square-xmark fa-lg"></i></a>
+                                                            <a href="account?action=edit&&AccountID=${ac.getAccountID()}"><i class="fa-solid fa-pen-to-square text-primary fa-lg me-2 ms-2" title="Edit"></i></a>
+                                                            <a><i class="fa-solid fa-square-xmark fa-lg me-2 ms-2"></i></a>
                                                         </td>
                                                     </c:when>
                                                     <c:otherwise>
