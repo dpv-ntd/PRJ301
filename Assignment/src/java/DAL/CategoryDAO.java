@@ -58,4 +58,16 @@ public class CategoryDAO extends BaseDAO<Category> {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void editCategory(String categoryid, String categoryname) {
+        try {
+            String sql = "UPDATE Category SET CategoryName = ? WHERE CategoryID = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, categoryname);
+            statement.setString(2, categoryid);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

@@ -104,6 +104,14 @@ public class CategoryController extends HttpServlet {
                 String categoryname = request.getParameter("categoryname");
                 dao.createCategory(categoryid, categoryname);
                 response.sendRedirect("category");
+                return;
+            }
+            if (action.equals("edit")) {
+                String categoryid = request.getParameter("categoryid");
+                String categoryname = request.getParameter("categoryname");
+                dao.editCategory(categoryid, categoryname);
+                response.sendRedirect("category");
+                return;
             }
         }
     }
