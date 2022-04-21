@@ -61,7 +61,7 @@
                                 <input type="email" class="form-control" id="email" value="" required name="email">
                             </div>
                             <div class="col-md-6">
-                                <button class="btn btn-primary" type="submit">Create</button>
+                                <button class="btn btn-primary" type="submit">Add Account</button>
                             </div>
                         </form>
                     </div>

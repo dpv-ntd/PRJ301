@@ -14,15 +14,15 @@
                     </a>
                 </c:if>
 
-                <a class="nav-link" href="reader">
+                <a class="nav-link ${readerMenu}" href="reader">
                     <div class="sb-nav-link-icon"></div>
                     <i class="fa-solid fa-book-open-reader me-3"></i>Reader
                 </a>
-                <a class="nav-link" href="invoice">
+                <a class="nav-link ${invoiceMenu}" href="invoice">
                     <div class="sb-nav-link-icon"></div>
                     <i class="fa-solid fa-file-lines me-3"></i>Invoice
                 </a>
-                <a class="nav-link" href="book">
+                <a class="nav-link ${bookMenu}" href="book">
                     <div class="sb-nav-link-icon"></div>
                     <i class="fa-solid fa-book me-3"></i>Book
                 </a>
@@ -30,11 +30,11 @@
                     <div class="sb-nav-link-icon"></div>
                     <i class="fa-solid fa-filter me-3"></i>Category
                 </a>
-                <a class="nav-link" href="author">
+                <a class="nav-link ${authorMenu}" href="author">
                     <div class="sb-nav-link-icon"></div>
                     <i class="fa-solid fa-user-pen me-3"></i>Author
                 </a>
-                <a class="nav-link" href="publisher">
+                <a class="nav-link ${publisherMenu}" href="publisher">
                     <div class="sb-nav-link-icon"></div>
                     <i class="fas fa-file-powerpoint me-3"></i>Publisher
                 </a>
