@@ -50,7 +50,7 @@
                             <div class="col-md-6">
                                 <label for="PublisherID" class="form-label">Publisher</label>
                                 <select class="form-select" id="PublisherID" required name="PublisherID">
-                                    <option selected disabled value="">Choose...</option>
+                                    <option selected disabled value="" >Choose...</option>
                                     <c:forEach items="${listPublisher}" var="pu">
                                         <option value="${pu.getPublisherID()}">${pu.getPublisherName()}</option>
                                     </c:forEach>
@@ -75,6 +75,11 @@
                         </form>
                     </div>
                 </main>
+                <script type="text/javascript">
+                    $('#AuthorID').select2();
+                    $('#CategoryID').select2();
+                    $('#PublisherID').select2();
+                </script>
                 <%@include file="Footer.jsp" %>
             </div>
         </div>

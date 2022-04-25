@@ -75,6 +75,11 @@
                         </form>
                     </div>
                 </main>
+                <script type="text/javascript">
+                    $('#AuthorID').select2();
+                    $('#CategoryID').select2();
+                    $('#PublisherID').select2();
+                </script>
                 <%@include file="Footer.jsp" %>
             </div>
         </div>

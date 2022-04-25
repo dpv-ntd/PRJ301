@@ -22,7 +22,7 @@ public class ReaderDAO extends BaseDAO<Reader> {
     public ArrayList<Reader> getListReader() {
         ArrayList<Reader> listReader = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Book ORDER BY BookID";
+            String sql = "SELECT * FROM Reader ORDER BY ReaderID";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -65,17 +65,17 @@ public class ReaderDAO extends BaseDAO<Reader> {
         return null;
     }
 
-    public void createReader(String ReaderID, String ReaderName, String ReaderAddress, Date ReaderDOB, String ReaderEmail, Date BeginDate, Date ExpirationDate) {
+    public void createReader(String ReaderID, String ReaderName, String ReaderAddress, String ReaderDOB, String ReaderEmail, String BeginDate, String ExpirationDate) {
         try {
             String sql = "INSERT INTO Reader (ReaderID, ReaderName, ReaderAddress, ReaderDOB, ReaderEmail, BeginDate, ExpirationDate) VALUES(?,?,?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, ReaderID);
             statement.setString(2, ReaderName);
             statement.setString(3, ReaderAddress);
-            statement.setDate(4, ReaderDOB);
+            statement.setString(4, ReaderDOB);
             statement.setString(5, ReaderEmail);
-            statement.setDate(6, BeginDate);
-            statement.setDate(7, ExpirationDate);
+            statement.setString(6, BeginDate);
+            statement.setString(7, ExpirationDate);
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ReaderDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,16 +93,16 @@ public class ReaderDAO extends BaseDAO<Reader> {
         }
     }
 
-    public void editReader(String ReaderID, String ReaderName, String ReaderAddress, Date ReaderDOB, String ReaderEmail, Date BeginDate, Date ExpirationDate) {
+    public void editReader(String ReaderID, String ReaderName, String ReaderAddress, String ReaderDOB, String ReaderEmail, String BeginDate, String ExpirationDate) {
         try {
-            String sql = "UPDATE Reader SET ReaderName = ?, ReaderAddress = ?, ReaderDOB = ?, ReaderEmail = ?, BeginDate = ?, ExpirationDate = ? WHERE BookID = ReaderID";
+            String sql = "UPDATE Reader SET ReaderName = ?, ReaderAddress = ?, ReaderDOB = ?, ReaderEmail = ?, BeginDate = ?, ExpirationDate = ? WHERE ReaderID = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, ReaderName);
             statement.setString(2, ReaderAddress);
-            statement.setDate(3, ReaderDOB);
+            statement.setString(3, ReaderDOB);
             statement.setString(4, ReaderEmail);
-            statement.setDate(5, BeginDate);
-            statement.setDate(6, ExpirationDate);
+            statement.setString(5, BeginDate);
+            statement.setString(6, ExpirationDate);
             statement.setString(7, ReaderID);
             statement.executeUpdate();
         } catch (SQLException ex) {
