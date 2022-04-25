@@ -42,6 +42,30 @@ public class BookDAO extends BaseDAO<Book> {
         return listBook;
     }
 
+    public Book getBookToEdit(String BookID) {
+        try {
+            String sql = "SELECT * FROM Book where BookID = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, BookID);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Book s = new Book();
+                s.setBookID(rs.getString("BookID"));
+                s.setBookName(rs.getString("BookName"));
+                s.setAuthorID(rs.getString("AuthorID"));
+                s.setCategoryID(rs.getString("CategoryID"));
+                s.setPublisherID(rs.getString("PublisherID"));
+                s.setPublishYear(rs.getString("PublishYear"));
+                s.setQuantity(rs.getInt("Quantity"));
+                s.setPrice(rs.getDouble("Price"));
+                return s;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public void createBook(String BookID, String BookName, String AuthorID, String CategoryID, String PublisherID, String PublishYear, int Quantity, double Price) {
         try {
             String sql = "INSERT INTO Book (BookID, BookName, AuthorID, CategoryID, PublisherID, PublishYear, Quantity, Price) VALUES(?,?,?,?,?,?,?,?)";
@@ -80,9 +104,9 @@ public class BookDAO extends BaseDAO<Book> {
             statement.setString(3, CategoryID);
             statement.setString(4, PublisherID);
             statement.setString(5, PublishYear);
-            statement.setString(6, BookID);
-            statement.setInt(7, Quantity);
-            statement.setDouble(8, Price);
+            statement.setInt(6, Quantity);
+            statement.setDouble(7, Price);
+            statement.setString(8, BookID);
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);

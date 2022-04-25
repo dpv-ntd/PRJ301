@@ -23,7 +23,7 @@
 
                         <div class="card mb-4">
                             <div class="card-header mb-4">
-                                <a href="account?action=create" type="button" class="btn btn-outline-success">
+                                <a href="book?action=create" type="button" class="btn btn-outline-success">
                                     <i class="fa-solid fa-plus me-2"></i>Add Book
                                 </a>
                             </div>
@@ -44,23 +44,18 @@
                                             <tr>
                                                 <td class="text-center">${bo.getBookID()}</td>
                                                 <td class="text-center">${bo.getBookName()}</td>
-                                                <td class="text-center">${bo.getName()}</td>
-                                                <td class="text-center">${bo.getDOB()}</td>
-                                                <td class="text-center">${bo.getRole()== 1 ? "Adminstrator":"User"}</td>
-                                                <c:choose>
-                                                    <c:when test="${ac.getRole() == 1}">
-                                                        <td class="text-center">
-                                                            <a href="account?action=edit&&AccountID=${ac.getAccountID()}"><i class="fa-solid fa-pen-to-square text-primary fa-lg me-2 ms-2" title="Edit"></i></a>
-                                                            <a><i class="fa-solid fa-square-xmark fa-lg me-2 ms-2"></i></a>
-                                                        </td>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <td class="text-center">
-                                                            <a href="account?action=edit&&AccountID=${ac.getAccountID()}"><i class="fa-solid fa-pen-to-square text-primary fa-lg me-2 ms-2" title="Edit"></i></a>
-                                                            <a href="#" onclick="deleteAccount('${ac.getAccountID()}')" ><i class="fa-solid fa-trash text-danger fa-lg me-2 ms-2" title="Delete"></i></a>
-                                                        </td>
-                                                    </c:otherwise>
-                                                </c:choose>
+                                                <c:forEach items="${listAuthor}" var="at">
+                                                    <c:if test="${at.getAuthorID() == bo.getAuthorID()}">
+                                                        <td class="text-center">${at.getAuthorName()}</td>
+                                                    </c:if>
+                                                </c:forEach>
+                                                
+                                                <td class="text-center">${bo.getPublishYear()}</td>
+                                                <td class="text-center">${bo.getQuantity() > 0 ? "Available":"Unavailable"}</td>
+                                                <td class="text-center">
+                                                    <a href="book?action=edit&&BookID=${bo.getBookID()}"><i class="fa-solid fa-pen-to-square text-primary fa-lg me-2 ms-2" title="Edit"></i></a>
+                                                    <a href="#" onclick="deleteBook('${bo.getBookID()}')" ><i class="fa-solid fa-trash text-danger fa-lg me-2 ms-2" title="Delete"></i></a>
+                                                </td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>
@@ -70,7 +65,7 @@
                     </div>
                 </main>
                 <script>
-                    function deleteAccount(id) {
+                    function deleteBook(id) {
                         Swal.fire({
                             title: 'Are you sure?',
                             text: "You won't be able to revert this!",
@@ -81,7 +76,7 @@
                             confirmButtonText: 'Yes, delete it!'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = 'account?action=delete&&AccountID=' + id;
+                                window.location.href = 'book?action=delete&&BookID=' + id;
                             }
                         })
                     }
