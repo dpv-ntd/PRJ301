@@ -49,7 +49,7 @@
                                                         <td class="text-center">${at.getAuthorName()}</td>
                                                     </c:if>
                                                 </c:forEach>
-                                                
+
                                                 <td class="text-center">${bo.getPublishYear()}</td>
                                                 <td class="text-center">${bo.getQuantity() > 0 ? "Available":"Unavailable"}</td>
                                                 <td class="text-center">
@@ -76,7 +76,17 @@
                             confirmButtonText: 'Yes, delete it!'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = 'book?action=delete&&BookID=' + id;
+                                Swal.fire(
+                                        'Deleted!',
+                                        'Your file has been deleted.',
+                                        'success'
+                                        )
+                                var delayInMilliseconds = 1000; //1 second
+
+                                setTimeout(function () {
+                                    window.location.href = 'book?action=delete&&BookID=' + id;
+                                }, delayInMilliseconds);
+
                             }
                         })
                     }

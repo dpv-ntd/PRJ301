@@ -4,10 +4,13 @@
  */
 package Controller;
 
-import DAL.AccountDAO;
-import Model.Account;
+import DAL.BookDAO;
+import Model.Book;
+import Model.Cart;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DPV
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/login"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "AddToCartController", urlPatterns = {"/add-to-cart"})
+public class AddToCartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,13 +41,12 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");
+            out.println("<title>Servlet AddToCartController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddToCartController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-
         }
     }
 
@@ -60,14 +62,29 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Account account = (Account) request.getSession().getAttribute("account");
-        if (account != null) {
-            request.getSession().setAttribute("account", account);
-            response.sendRedirect("dashboard");
-        } else {
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        String BookID = request.getParameter("BookID");
+        Map<String, Cart> carts = (Map<String, Cart>) request.getSession().getAttribute("carts");
+        if (carts == null) {
+            carts = new LinkedHashMap<>();
         }
 
+        String action = request.getParameter("action");
+        if (action != null) {
+            if (action.equals("clear")) {
+                request.getSession().removeAttribute("carts");
+                response.sendRedirect("invoice?action=create");
+                return;
+            }
+            if (action.equals("delete-cart")) {
+
+                if (carts.containsKey(BookID)) {
+                    carts.remove(BookID);
+                }
+                request.getSession().setAttribute("carts", carts);
+                response.sendRedirect("invoice?action=create");
+                return;
+            }
+        }
     }
 
     /**
@@ -81,21 +98,24 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String BookID = request.getParameter("BookID");
+        BookDAO dao = new BookDAO();
 
-        AccountDAO dao = new AccountDAO();
-        Account account = dao.getAccount(username, password);
-
-        if (account != null) {
-            request.getSession().setAttribute("account", account);
-            request.setAttribute("success", "Login success");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-            //response.sendRedirect("dashboard");
-        } else {
-            request.setAttribute("notify", "Login information is incorrect");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        Map<String, Cart> carts = (Map<String, Cart>) request.getSession().getAttribute("carts");
+        if (carts == null) {
+            carts = new LinkedHashMap<>();
         }
+
+        if (carts.containsKey(BookID)) {
+            response.sendRedirect("invoice?action=create");
+            return;
+        } else {
+            Book book = dao.getBookToEdit(BookID);
+            Cart newCart = new Cart(book);
+            carts.put(BookID, newCart);
+        }
+        request.getSession().setAttribute("carts", carts);
+        response.sendRedirect("invoice?action=create");
     }
 
     /**

@@ -129,10 +129,21 @@
                             confirmButtonText: 'Yes, delete it!'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = 'publisher?action=delete&&PublisherID=' + id;
+                                Swal.fire(
+                                        'Deleted!',
+                                        'Your file has been deleted.',
+                                        'success'
+                                        )
+                                var delayInMilliseconds = 1000; //1 second
+
+                                setTimeout(function () {
+                                    window.location.href = 'publisher?action=delete&&PublisherID=' + id;
+                                }, delayInMilliseconds);
+
                             }
                         })
                     }
+                    document.getElementById('PublisherID').value = 'PL' + Date.now();
                 </script>
                 <%@include file="Footer.jsp" %>
             </div>

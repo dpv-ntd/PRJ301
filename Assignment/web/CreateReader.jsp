@@ -37,14 +37,13 @@
                                 <label for="ReaderDOB" class="form-label">Reader DOB</label>
                                 <input type="date" class="form-control" id="ReaderDOB" value="" required name="ReaderDOB">
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label for="ReaderEmail" class="form-label">Reader Email</label>
                                 <input type="email"  class="form-control" id="ReaderEmail" value="" required name="ReaderEmail" placeholder="Enter Email">
                             </div>
-                            <div class="col-md-6">
-                                <label for="BeginDate" class="form-label">Begin Date</label>
-                                <input type="date"  class="form-control" id="BeginDate" value="" required name="BeginDate">
-                            </div>
+
+                            <input type="date"  class="form-control" id="BeginDate" value="" required name="BeginDate" hidden="">
+
                             <div class="col-md-6">
                                 <label for="ExpirationDate" class="form-label">Expiration Date</label>
                                 <input type="date"  class="form-control" id="ExpirationDate" value="" required name="ExpirationDate">
@@ -58,6 +57,7 @@
                 </main>
                 <script>
                     document.getElementById('BeginDate').valueAsDate = new Date();
+                    document.getElementById('ReaderID').value = 'RD' + Date.now();
                 </script>
                 <%@include file="Footer.jsp" %>
             </div>

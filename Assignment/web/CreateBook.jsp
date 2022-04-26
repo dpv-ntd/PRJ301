@@ -40,7 +40,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="CategoryID" class="form-label">Category</label>
-                                <select class="form-select" id="CategoryID" required name="CategoryID">
+                                <select class="form-select" id="CategoryID" required name="CategoryID" >
                                     <option selected disabled value="">Choose...</option>
                                     <c:forEach items="${listCategory}" var="ct">
                                         <option value="${ct.getCategoryID()}">${ct.getCategoryName()}</option>
@@ -79,6 +79,7 @@
                     $('#AuthorID').select2();
                     $('#CategoryID').select2();
                     $('#PublisherID').select2();
+                    document.getElementById('BookID').value ='BO' + Date.now();
                 </script>
                 <%@include file="Footer.jsp" %>
             </div>

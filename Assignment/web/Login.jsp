@@ -44,6 +44,20 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div>
                                             </c:if>
+                                            <c:if test="${success != null}">
+                                                <script>
+                                                    Swal.fire(
+                                                            'Success!',
+                                                            'Login successful!',
+                                                            'success'
+                                                            )
+                                                    var delayInMilliseconds = 1000; //1 second
+
+                                                    setTimeout(function () {
+                                                        window.location.href = 'dashboard';
+                                                    }, delayInMilliseconds);
+                                                </script>
+                                            </c:if>
 
                                             <div class="form-check mb-3">
                                                 <input name="remember" class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
