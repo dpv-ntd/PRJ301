@@ -4,6 +4,8 @@
  */
 package Model;
 
+import java.sql.Date;
+
 /**
  *
  * @author DPV
@@ -12,13 +14,13 @@ public class Invoice {
 
     private String InvoiceID;
     private String ReaderID;
-    private String AccountID;
-    private String BorrowDate;
+    private int AccountID;
+    private Date BorrowDate;
 
     public Invoice() {
     }
 
-    public Invoice(String InvoiceID, String ReaderID, String AccountID, String BorrowDate) {
+    public Invoice(String InvoiceID, String ReaderID, int AccountID, Date BorrowDate) {
         this.InvoiceID = InvoiceID;
         this.ReaderID = ReaderID;
         this.AccountID = AccountID;
@@ -41,19 +43,19 @@ public class Invoice {
         this.ReaderID = ReaderID;
     }
 
-    public String getAccountID() {
+    public int getAccountID() {
         return AccountID;
     }
 
-    public void setAccountID(String AccountID) {
+    public void setAccountID(int AccountID) {
         this.AccountID = AccountID;
     }
 
-    public String getBorrowDate() {
+    public Date getBorrowDate() {
         return BorrowDate;
     }
 
-    public void setBorrowDate(String BorrowDate) {
+    public void setBorrowDate(Date BorrowDate) {
         this.BorrowDate = BorrowDate;
     }
 

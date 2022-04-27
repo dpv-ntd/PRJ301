@@ -67,8 +67,10 @@
                                                 <td class="text-center">${pu.getPublisherEmail()}</td>
 
                                                 <td class="text-center">
-                                                    <a data-bs-toggle="modal" data-bs-target="#PublisherID${pu.getPublisherID()}" href=""><i class="fa-solid fa-pen-to-square text-primary fa-lg me-2 ms-2" title="Edit"></i></a>
-                                                    <a href="#" onclick="deletePublisher('${pu.getPublisherID()}')" ><i class="fa-solid fa-trash text-danger fa-lg me-2 ms-2" title="Delete"></i></a>
+                                                    <div>
+                                                        <a data-bs-toggle="modal" data-bs-target="#PublisherID${pu.getPublisherID()}" href=""><i class="fa-solid fa-pen-to-square text-primary fa-lg me-2 ms-2" title="Edit"></i></a>
+                                                        <a href="#" onclick="deletePublisher('${pu.getPublisherID()}')" ><i class="fa-solid fa-trash text-danger fa-lg me-2 ms-2" title="Delete"></i></a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <!-- Modal profiles -->

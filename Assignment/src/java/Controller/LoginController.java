@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,7 +61,29 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Account account = (Account) request.getSession().getAttribute("account");
+
+        Account account = new Account();
+        String user = null;
+        String pass = null;
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cooky : cookies) {
+            if (cooky.getName().equals("username")) {
+                user = cooky.getValue();
+            }
+            if (cooky.getName().equals("password")) {
+                pass = cooky.getValue();
+            }
+            if (user != null && pass != null) {
+                break;
+            }
+        }
+        if (user != null && pass != null) {
+            account = new AccountDAO().getAccount(user, pass);
+        } else {
+            account = (Account) request.getSession().getAttribute("account");
+        }
+
         if (account != null) {
             request.getSession().setAttribute("account", account);
             response.sendRedirect("dashboard");
@@ -83,15 +106,25 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String remember = request.getParameter("remember");
 
         AccountDAO dao = new AccountDAO();
         Account account = dao.getAccount(username, password);
 
         if (account != null) {
+            if (remember != null) {
+                Cookie c_user = new Cookie("username", username);
+                Cookie c_pass = new Cookie("password", password);
+                c_user.setMaxAge(60 * 60 * 24);
+                c_pass.setMaxAge(60 * 60 * 24);
+                response.addCookie(c_pass);
+                response.addCookie(c_user);
+            }
+
             request.getSession().setAttribute("account", account);
             request.setAttribute("success", "Login success");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
-            //response.sendRedirect("dashboard");
+
         } else {
             request.setAttribute("notify", "Login information is incorrect");
             request.getRequestDispatcher("Login.jsp").forward(request, response);

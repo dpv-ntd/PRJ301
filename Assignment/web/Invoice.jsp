@@ -31,30 +31,27 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr style="background-color: #FFCE73">
-                                            <th class="text-center">Book ID</th>
-                                            <th class="text-center">Book Name</th>
-                                            <th class="text-center">Author</th>
-                                            <th class="text-center">Publish Year</th>
-                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Invoice ID</th>
+                                            <th class="text-center">Reader Name</th>
+                                            <th class="text-center">Borrow Date</th>
                                             <th class="text-center"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach items="${listBook}" var="bo">
+                                        <c:forEach items="${listInvoiceUnPaid}" var="iup">
                                             <tr>
-                                                <td class="text-center">${bo.getBookID()}</td>
-                                                <td class="text-center">${bo.getBookName()}</td>
-                                                <c:forEach items="${listAuthor}" var="at">
-                                                    <c:if test="${at.getAuthorID() == bo.getAuthorID()}">
-                                                        <td class="text-center">${at.getAuthorName()}</td>
+                                                <td class="text-center">${iup.getInvoiceID()}</td>
+
+                                                <c:forEach items="${listReader}" var="rd">
+                                                    <c:if test="${rd.getReaderID() == iup.getReaderID()}">
+                                                        <td class="text-center">${rd.getReaderName()}</td>
                                                     </c:if>
                                                 </c:forEach>
-
-                                                <td class="text-center">${bo.getPublishYear()}</td>
-                                                <td class="text-center">${bo.getQuantity() > 0 ? "Available":"Unavailable"}</td>
+                                                <td class="text-center">${iup.getBorrowDate()}</td>
                                                 <td class="text-center">
-                                                    <a href="book?action=edit&&BookID=${bo.getBookID()}"><i class="fa-solid fa-pen-to-square text-primary fa-lg me-2 ms-2" title="Edit"></i></a>
-                                                    <a href="#" onclick="deleteBook('${bo.getBookID()}')" ><i class="fa-solid fa-trash text-danger fa-lg me-2 ms-2" title="Delete"></i></a>
+                                                    <a href="invoice?action=view&&InvoiceID=${iup.getInvoiceID()}"><i class="fa-solid fa-eye fa-lg text-primary me-2 ms-2" title="View"></i></a>
+                                                    <a href="invoice?action=edit&&InvoiceID=${iup.getInvoiceID()}"><i class="fa-solid fa-pen-to-square text-warning fa-lg me-2 ms-2" title="Edit"></i></a>
+                                                    <a href="#" onclick="deleteInvoice('${iup.getInvoiceID()}')" ><i class="fa-solid fa-trash text-danger fa-lg me-2 ms-2" title="Delete"></i></a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -65,7 +62,7 @@
                     </div>
                 </main>
                 <script>
-                    function deleteBook(id) {
+                    function deleteInvoice(id) {
                         Swal.fire({
                             title: 'Are you sure?',
                             text: "You won't be able to revert this!",
@@ -84,7 +81,7 @@
                                 var delayInMilliseconds = 1000; //1 second
 
                                 setTimeout(function () {
-                                    window.location.href = 'book?action=delete&&BookID=' + id;
+                                    window.location.href = 'invoice?action=delete&&InvoiceID=' + id;
                                 }, delayInMilliseconds);
 
                             }

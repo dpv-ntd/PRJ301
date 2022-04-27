@@ -4,12 +4,18 @@
  */
 package Controller;
 
+import DAL.AuthorDAO;
 import DAL.BookDAO;
+import DAL.CategoryDAO;
 import DAL.InvoiceDAO;
 import DAL.ReaderDAO;
 import Model.Account;
+import Model.Author;
 import Model.Book;
 import Model.Cart;
+import Model.Category;
+import Model.Invoice;
+import Model.InvoiceDetails;
 import Model.Reader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -74,26 +80,77 @@ public class InvoiceController extends HttpServlet {
 
         BookDAO daoBook = new BookDAO();
         ReaderDAO daoReader = new ReaderDAO();
+        InvoiceDAO daoInvoice = new InvoiceDAO();
+        AuthorDAO daoAuthor = new AuthorDAO();
+        CategoryDAO daoCategory = new CategoryDAO();
 
         ArrayList<Book> listBook = daoBook.getListBook();
         ArrayList<Reader> listReader = daoReader.getListReader();
+        ArrayList<Author> listAuthor = daoAuthor.getListAuthor();
+        ArrayList<Category> listCategory = daoCategory.getListCategory();
+        ArrayList<Invoice> listInvoiceUnPaid = daoInvoice.getListInvoiceUnPaid();
+
         String action = request.getParameter("action");
         if (action != null) {
             if (action.equals("create")) {
                 request.setAttribute("listBook", listBook);
                 request.setAttribute("listReader", listReader);
                 request.getRequestDispatcher("CreateInvoice.jsp").forward(request, response);
+                request.getSession().setAttribute("urlPrev", "invoice?action=create");
                 return;
             }
             if (action.equals("edit")) {
-                request.getRequestDispatcher("EditBook.jsp").forward(request, response);
+                String InvoiceID = request.getParameter("InvoiceID");
+                String InvoiceIDBefore = (String) request.getSession().getAttribute("InvoiceIDBefore");
+                request.getSession().setAttribute("InvoiceIDBefore", InvoiceID);
+
+                Map<String, Cart> carts = new LinkedHashMap<>();
+                if (!InvoiceID.equals(InvoiceIDBefore)) {
+                    carts = daoInvoice.getCartBook(InvoiceID);
+                }
+                if (InvoiceID.equals(InvoiceIDBefore)) {
+                    carts = (Map<String, Cart>) request.getSession().getAttribute("carts");
+                }
+
+                Invoice invoice = daoInvoice.getInvoice(InvoiceID);
+                request.setAttribute("invoice", invoice);
+                request.setAttribute("listBook", listBook);
+                request.setAttribute("listReader", listReader);
+                request.getSession().setAttribute("carts", carts);
+                request.getRequestDispatcher("EditInvoice.jsp").forward(request, response);
+                request.getSession().setAttribute("urlPrev", "invoice?action=edit&&InvoiceID=" + InvoiceID);
                 return;
             }
             if (action.equals("delete")) {
-                response.sendRedirect("book");
+                String InvoiceID = request.getParameter("InvoiceID");
+                daoInvoice.deleteInvoiceDetails(InvoiceID);
+                daoInvoice.deleteInvoice(InvoiceID);
+                response.sendRedirect("invoice");
+                return;
+            }
+            if (action.equals("view")) {
+                String InvoiceID = request.getParameter("InvoiceID");
+                ArrayList<InvoiceDetails> listInvoiceDetailsUnPaid = daoInvoice.getListInvoiceDetailsUnPaid(InvoiceID);
+                Invoice InvoiceUnPaid = daoInvoice.getInvoiceUnPaid(InvoiceID);
+                request.setAttribute("listBook", listBook);
+                request.setAttribute("listReader", listReader);
+                request.setAttribute("listCategory", listCategory);
+                request.setAttribute("listAuthor", listAuthor);
+                request.setAttribute("InvoiceUnPaid", InvoiceUnPaid);
+                request.setAttribute("listInvoiceDetailsUnPaid", listInvoiceDetailsUnPaid);
+                request.getRequestDispatcher("ViewInvoice.jsp").forward(request, response);
+                return;
+            }
+            if (action.equals("return-book")) {
+                String InvoiceID = request.getParameter("InvoiceID");
+                daoInvoice.returnBook(InvoiceID);
+                response.sendRedirect("invoice");
                 return;
             }
         }
+
+        request.setAttribute("listReader", listReader);
+        request.setAttribute("listInvoiceUnPaid", listInvoiceUnPaid);
 
         request.getRequestDispatcher("Invoice.jsp").forward(request, response);
     }
@@ -134,8 +191,26 @@ public class InvoiceController extends HttpServlet {
 
                 request.getSession().removeAttribute("carts");
                 response.sendRedirect("invoice");
-//                response.getWriter().print(InvoiceID + ", " + ReaderID + ", " + BorrowDate);
-//                response.getWriter().print(carts);
+                return;
+            }
+            if (action.equals("edit")) {
+                Map<String, Cart> carts = (Map<String, Cart>) request.getSession().getAttribute("carts");
+                if (carts == null) {
+                    carts = new LinkedHashMap<>();
+                }
+
+                Account account = (Account) request.getSession().getAttribute("account");
+                String InvoiceID = request.getParameter("InvoiceID");
+                String ReaderID = request.getParameter("ReaderID");
+                String BorrowDate = request.getParameter("BorrowDate");
+                int AccountID = account.getAccountID();
+
+                InvoiceDAO dao = new InvoiceDAO();
+                dao.deleteInvoiceDetails(InvoiceID);
+                dao.updateInvoice(InvoiceID, ReaderID, AccountID, BorrowDate);
+                dao.createInvoiceDetails(InvoiceID, carts);
+
+                response.sendRedirect("invoice");
                 return;
             }
 

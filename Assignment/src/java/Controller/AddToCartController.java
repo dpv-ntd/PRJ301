@@ -63,6 +63,7 @@ public class AddToCartController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String BookID = request.getParameter("BookID");
+        String urlPrev = (String) request.getSession().getAttribute("urlPrev");
         Map<String, Cart> carts = (Map<String, Cart>) request.getSession().getAttribute("carts");
         if (carts == null) {
             carts = new LinkedHashMap<>();
@@ -72,7 +73,7 @@ public class AddToCartController extends HttpServlet {
         if (action != null) {
             if (action.equals("clear")) {
                 request.getSession().removeAttribute("carts");
-                response.sendRedirect("invoice?action=create");
+                response.sendRedirect(urlPrev);
                 return;
             }
             if (action.equals("delete-cart")) {
@@ -81,7 +82,7 @@ public class AddToCartController extends HttpServlet {
                     carts.remove(BookID);
                 }
                 request.getSession().setAttribute("carts", carts);
-                response.sendRedirect("invoice?action=create");
+                response.sendRedirect(urlPrev);
                 return;
             }
         }
@@ -100,6 +101,7 @@ public class AddToCartController extends HttpServlet {
             throws ServletException, IOException {
         String BookID = request.getParameter("BookID");
         BookDAO dao = new BookDAO();
+        String urlPrev = (String) request.getSession().getAttribute("urlPrev");
 
         Map<String, Cart> carts = (Map<String, Cart>) request.getSession().getAttribute("carts");
         if (carts == null) {
@@ -107,7 +109,7 @@ public class AddToCartController extends HttpServlet {
         }
 
         if (carts.containsKey(BookID)) {
-            response.sendRedirect("invoice?action=create");
+            response.sendRedirect(urlPrev);
             return;
         } else {
             Book book = dao.getBookToEdit(BookID);
@@ -115,7 +117,7 @@ public class AddToCartController extends HttpServlet {
             carts.put(BookID, newCart);
         }
         request.getSession().setAttribute("carts", carts);
-        response.sendRedirect("invoice?action=create");
+        response.sendRedirect(urlPrev);
     }
 
     /**

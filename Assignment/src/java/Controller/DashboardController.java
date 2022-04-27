@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import DAL.DashboardDAO;
 import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -58,7 +59,19 @@ public class DashboardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        DashboardDAO dao = new DashboardDAO();
+        int NumberOfAuthor = dao.NumberOfAuthor();
+        int NumberOfReader = dao.NumberOfReader();
+        int NumberOfPublisher = dao.NumberOfPublisher();
+        int NumberOfBook = dao.NumberOfBook();
+        int NumberOfCategory = dao.NumberOfCategory();
+
         request.setAttribute("dashboardMenu", "active");
+        request.setAttribute("NumberOfAuthor", NumberOfAuthor);
+        request.setAttribute("NumberOfReader", NumberOfReader);
+        request.setAttribute("NumberOfPublisher", NumberOfPublisher);
+        request.setAttribute("NumberOfBook", NumberOfBook);
+        request.setAttribute("NumberOfCategory", NumberOfCategory);
         request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
     }
 
